@@ -44,4 +44,17 @@ public class UserService {
     public int getUserCount(){
         return dao.getUserCount();
     }
+
+    public boolean validateUser(String username, String password)
+    throws NoSuchAlgorithmException {
+        return dao.validateUser(username, password);
+    }
+
+    public boolean isUsernameUnique(String username) {
+        return dao.isUsernameUnique(username);
+    }
+
+    public void addUser(User user){
+        dao.addUser(user);
+    }
 }

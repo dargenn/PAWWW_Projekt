@@ -25,6 +25,18 @@
     </form>
 </div>
 
+<div id="registerContainer">
+    <h1>PLEASE REGISTER</h1>
+    <form method="post" action="/register">
+        <label for="login">Login:</label>
+        <input type="text" id="reglogin" name="reglogin"/>
+        <label for="password">Password:</label>
+        <input type="password" id="regpassword" name="regpassword" />
+        <input type="radio" />
+        <input type="submit" value="Register!" />
+    </form>
+</div>
+
     <h1>Hello world</h1>
     <h2>List of Users - now we have ${userCount} of them!</h2>
     <table>

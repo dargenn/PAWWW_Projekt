@@ -1,5 +1,6 @@
 package com.dargenn.controller;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,9 +43,36 @@ public class AppController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String welcome(@ModelAttribute("login")String username, ModelMap modelMap){
-        modelMap.addAttribute("login", username);
-        return "afterlogin";
+    public String login(@ModelAttribute("login")String username,
+                          @ModelAttribute("password")String password,
+                          ModelMap modelMap)
+    throws NoSuchAlgorithmException {
+        if(userService.validateUser(username, password)) {
+            modelMap.addAttribute("login", username);
+            modelMap.addAttribute("password", password);
+            return "afterlogin";
+        } else {
+            return "index";
+        }
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("reglogin")String username,
+                                @ModelAttribute("regpassword")String password,
+                                ModelMap modelMap)
+    throws NoSuchAlgorithmException {
+        if(!userService.isUsernameUnique(username)){
+            User user = new User();
+            user.setLogin(username);
+            user.setPassword(password);
+
+            userService.addUser(user);
+
+            modelMap.addAttribute("login", username);
+            return "regsuccess";
+        } else {
+            return "index";
+        }
     }
 
 }
