@@ -10,15 +10,27 @@
 <html>
 <head>
     <title>Main Page</title>
-    <link rel="stylesheet" href="<c:url value='/css/app.css' />" />
+    <link rel="stylesheet" href="<c:url value='/static/css/app.css' />" />
 </head>
 <body>
+
+<div id="loginContainer">
+    <h1>PLEASE LOGIN</h1>
+    <form method="post" action="/login">
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login"/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" />
+        <input type="submit" value="Login" />
+    </form>
+</div>
+
     <h1>Hello world</h1>
     <h2>List of Users - now we have ${userCount} of them!</h2>
     <table>
         <tr>
-            <td>Login</td>
-            <td>Password</td>
+            <th>Login</th>
+            <th>Password</th>
         </tr>
         <c:forEach items="${users}" var="user">
             <tr>
@@ -27,5 +39,7 @@
             </tr>
         </c:forEach>
     </table>
+
+
 </body>
 </html>
