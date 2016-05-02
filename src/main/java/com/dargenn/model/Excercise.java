@@ -17,6 +17,7 @@ public class Excercise {
     private Integer reps;
     private Integer weight;
     private Timestamp excerciseDate;
+    private int user_id;
 
     @Id
     @Column(name = "ID")
@@ -76,6 +77,16 @@ public class Excercise {
 
     public void setExcerciseDate(Timestamp excerciseDate) {
         this.excerciseDate = excerciseDate;
+    }
+
+    @Basic
+    @Column(name = "user_id")
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id){
+        this.user_id = user_id;
     }
 
     @Override

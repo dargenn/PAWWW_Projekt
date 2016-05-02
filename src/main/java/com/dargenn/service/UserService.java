@@ -57,4 +57,8 @@ public class UserService {
     public void addUser(User user){
         dao.addUser(user);
     }
+
+    public int findUserByLogin(String username){
+        return dao.findUserByLogin(username);
+    }
 }

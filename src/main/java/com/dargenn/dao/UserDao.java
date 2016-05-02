@@ -69,4 +69,11 @@ public class UserDao extends AbstractDao<Integer, User>{
                 .setParameter("log", user.getLogin())
                 .setParameter("pwd", user.getPassword()).executeUpdate();
     }
+
+    public int findUserByLogin(String username){
+        String q = "SELECT ID FROM User WHERE login = :login";
+        String result = getSession().createSQLQuery(q)
+                .setParameter("login", username).uniqueResult().toString();
+        return Integer.parseInt(result);
+    }
 }

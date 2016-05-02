@@ -9,7 +9,9 @@ import java.util.Locale;
 import javax.jws.soap.SOAPBinding;
 import javax.validation.Valid;
 
+import com.dargenn.model.Excercise;
 import com.dargenn.model.User;
+import com.dargenn.service.ExcerciseService;
 import com.dargenn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -31,10 +33,16 @@ public class AppController {
     UserService userService;
 
     @Autowired
+    ExcerciseService excerciseService;
+
+    @Autowired
     MessageSource messageSource;
+
+    public int currentId;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap modelMap){
+
         List<User> users = userService.findAllUsers();
         int userCount = userService.getUserCount();
         modelMap.addAttribute("users", users);
@@ -47,9 +55,16 @@ public class AppController {
                           @ModelAttribute("password")String password,
                           ModelMap modelMap)
     throws NoSuchAlgorithmException {
+
         if(userService.validateUser(username, password)) {
             modelMap.addAttribute("login", username);
             modelMap.addAttribute("password", password);
+            currentId = userService.findUserByLogin(username);
+            modelMap.addAttribute("currentId", currentId);
+
+            List<Excercise> excercises = excerciseService.findUserExcercises(currentId);
+            modelMap.addAttribute("excercises", excercises);
+
             return "afterlogin";
         } else {
             return "index";
@@ -59,8 +74,9 @@ public class AppController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registration(@ModelAttribute("reglogin")String username,
                                 @ModelAttribute("regpassword")String password,
-                                ModelMap modelMap)
+                                ModelMap modelMap, BindingResult result)
     throws NoSuchAlgorithmException {
+
         if(!userService.isUsernameUnique(username)){
             User user = new User();
             user.setLogin(username);
@@ -74,5 +90,4 @@ public class AppController {
             return "index";
         }
     }
-
 }
