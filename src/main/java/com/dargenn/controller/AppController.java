@@ -115,4 +115,20 @@ public class AppController {
         excerciseService.addExcercise(excercise, currentId);
         return "redirect:/afterlogin";
     }
+
+    @RequestMapping(value = "/edit-{id}-excercise", method = RequestMethod.POST)
+    public String editExcercise(@PathVariable int id,
+                                @ModelAttribute("eexname")String exname,
+                                @ModelAttribute("eexsets")int exsets,
+                                @ModelAttribute("eexreps")int exreps,
+                                @ModelAttribute("eexweight")int exweight){
+        Excercise excercise = new Excercise();
+        excercise.setName(exname);
+        excercise.setSets(exsets);
+        excercise.setReps(exreps);
+        excercise.setWeight(exweight);
+
+        excerciseService.editExcercise(excercise, id);
+        return "redirect:/afterlogin";
+    }
 }
