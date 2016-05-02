@@ -12,9 +12,6 @@ import java.util.List;
  */
 @Repository("excerciseDao")
 public class ExcerciseDao extends AbstractDao<Integer, Excercise> {
-    public void saveExcercise(Excercise excercise){
-        persist(excercise);
-    }
 
     @SuppressWarnings("unckecked")
     public List<Excercise> findUserExcercises(int id){
@@ -25,5 +22,17 @@ public class ExcerciseDao extends AbstractDao<Integer, Excercise> {
 //        List result = getSession().createSQLQuery(q)
 //                .setParameter("userid", id).list();
 //        return (List<Excercise>) result;
+    }
+
+    public void addExcercise(Excercise excercise, int id){
+        String q = "INSERT INTO Excercise(name, sets, reps, weight, user_id) " +
+                "VALUES(:name, :sets, :reps, :weight, :user_id)";
+        getSession().createSQLQuery(q)
+                .setParameter("name", excercise.getName())
+                .setParameter("sets", excercise.getSets())
+                .setParameter("reps", excercise.getReps())
+                .setParameter("weight", excercise.getWeight())
+                .setParameter("user_id", id)
+                .executeUpdate();
     }
 }

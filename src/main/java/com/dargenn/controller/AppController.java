@@ -3,6 +3,8 @@ package com.dargenn.controller;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,7 +40,7 @@ public class AppController {
     @Autowired
     MessageSource messageSource;
 
-    public int currentId;
+    public int currentId;;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap modelMap){
@@ -50,7 +52,7 @@ public class AppController {
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = { "/login", "/afterlogin" } )
     public String login(@ModelAttribute("login")String username,
                           @ModelAttribute("password")String password,
                           ModelMap modelMap)
@@ -67,7 +69,14 @@ public class AppController {
 
             return "afterlogin";
         } else {
-            return "index";
+            if(currentId > 0){
+                modelMap.addAttribute("login", username);
+                List<Excercise> excercises = excerciseService.findUserExcercises(currentId);
+                modelMap.addAttribute("excercises", excercises);
+                return "afterlogin";
+            } else {
+                return "index";
+            }
         }
     }
 
@@ -89,5 +98,21 @@ public class AppController {
         } else {
             return "index";
         }
+    }
+
+    @RequestMapping(value = "/addExcercise", method = RequestMethod.GET)
+    public String addExcercise(@ModelAttribute("exname")String exname,
+                               @ModelAttribute("exsets")int exsets,
+                               @ModelAttribute("exreps")int exreps,
+                               @ModelAttribute("exweight")int exweight){
+
+        Excercise excercise = new Excercise();
+        excercise.setName(exname);
+        excercise.setSets(exsets);
+        excercise.setReps(exreps);
+        excercise.setWeight(exweight);
+
+        excerciseService.addExcercise(excercise, currentId);
+        return "redirect:/afterlogin";
     }
 }

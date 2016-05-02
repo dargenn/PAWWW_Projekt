@@ -34,6 +34,17 @@
             </tr>
         </c:forEach>
     </table>
+    <form method="get" action="/addExcercise">
+        <br /><label for="exname">Excercise:</label>
+        <input type="text" id="exname" name="exname"/>
+        <br /><label for="exsets">Sets:</label>
+        <input type="text" id="exsets" name="exsets"/>
+        <br /><label for="exreps">Reps:</label>
+        <input type="text" id="exreps" name="exreps"/>
+        <br /><label for="exweight">Weight:</label>
+        <input type="text" id="exweight" name="exweight"/>
+        <br /><input type="submit" value="Add excercise!" />
+    </form>
 </div>
 </body>
 </html>

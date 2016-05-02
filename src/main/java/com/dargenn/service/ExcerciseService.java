@@ -18,11 +18,11 @@ public class ExcerciseService {
     @Autowired
     private ExcerciseDao dao;
 
-    public void saveExcercise(Excercise excercise){
-        dao.saveExcercise(excercise);
-    }
-
     public List<Excercise> findUserExcercises(int id){
         return dao.findUserExcercises(id);
+    }
+
+    public void addExcercise(Excercise excercise, int id){
+        dao.addExcercise(excercise, id);
     }
 }
