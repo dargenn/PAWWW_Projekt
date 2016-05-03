@@ -10,16 +10,19 @@
 <html>
 <head>
     <title>After Login Page</title>
-    <link rel="stylesheet" href="<c:url value='/static/css/app.css' />" />
+    <%--<link rel="stylesheet" href="<c:url value='/static/css/style.css' />"  type="text/css"/>--%>
+    <%--<link rel="stylesheet" href="<c:url value='/static/css/app.css' />" />--%>
+    <link rel="stylesheet" href="<c:url value='/static/css/afterlogin.css' />" />
     <link rel="stylesheet" href="<c:url value='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css' />" />
     <script src="<c:url value='http://code.jquery.com/jquery-1.11.3.min.js' />"></script>
     <script src="<c:url value='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js' />"></script>
 </head>
-<body>
+<body style="text-align: center">
 <div data-role="header">
-    <h1>Hello ${login}!</h1>
+    <h1><img src="../../static/images/hand_biceps-256.png" width="50" height="50"/> Hello ${login}!
+        <img src="../../static/images/hand_biceps-2562.png" width="50" height="50"/></h1>
 </div>
-
+<div id="wrapper">
 <div id="excercise">
     <h1>Excercises</h1>
     <table>
@@ -43,13 +46,13 @@
     </table>
     <form method="get" action="/addExcercise">
         <br /><label for="exname">Excercise:</label>
-        <input type="text" id="exname" name="exname"/>
+        <input type="text" id="exname" name="exname" required/>
         <br /><label for="exsets">Sets:</label>
-        <input type="text" id="exsets" name="exsets"/>
+        <input type="text" id="exsets" name="exsets" required/>
         <br /><label for="exreps">Reps:</label>
-        <input type="text" id="exreps" name="exreps"/>
+        <input type="text" id="exreps" name="exreps" required/>
         <br /><label for="exweight">Weight:</label>
-        <input type="text" id="exweight" name="exweight"/>
+        <input type="text" id="exweight" name="exweight" required/>
         <br /><input type="submit" value="Add excercise!" />
     </form>
 </div>
@@ -75,11 +78,11 @@
     </table>
     <form method="get" action="/addMeal">
         <br /><label for="mmeal">Meal:</label>
-        <input type="text" id="mmeal" name="mmeal"/>
+        <input type="text" id="mmeal" name="mmeal" required/>
         <br /><label for="mamount">Amount:</label>
-        <input type="text" id="mamount" name="mamount"/>
+        <input type="text" id="mamount" name="mamount" required/>
         <br /><label for="mtype">Type:</label>
-        <input type="text" id="mtype" name="mtype"/>
+        <input type="text" id="mtype" name="mtype" required/>
         <br /><input type="submit" value="Add meal!" />
     </form>
 </div>
@@ -103,9 +106,9 @@
     </table>
     <form method="get" action="/addSuplement">
         <br /><label for="sname">Suplement:</label>
-        <input type="text" id="sname" name="sname"/>
+        <input type="text" id="sname" name="sname" required/>
         <br /><label for="samount">Amount:</label>
-        <input type="text" id="samount" name="samount"/>
+        <input type="text" id="samount" name="samount" required/>
         <br /><input type="submit" value="Add suplement!" />
     </form>
 </div>
@@ -125,7 +128,7 @@
     </table>
     <form method="get" action="/addUserClipboard">
         <br /><label for="ccontent">Content:</label>
-        <input type="text" id="ccontent" name="ccontent"/>
+        <input type="text" id="ccontent" name="ccontent" required/>
         <br /><input type="submit" value="Add something to your clipboard!" />
     </form>
 </div>
@@ -145,13 +148,10 @@
     </table>
     <form method="get" action="/addQuote">
         <br /><label for="qcontent">Content:</label>
-        <input type="text" id="qcontent" name="qcontent"/>
+        <input type="text" id="qcontent" name="qcontent" required/>
         <br /><input type="submit" value="Add quote!" />
     </form>
 </div>
-
-<div data-role="footer">
-    <h1>Projekt Silownia - Programowanie Aplikacji WWW w technologii Java</h1>
 </div>
-</body>
-</html>
+
+<%@ include file="footer.jsp" %>

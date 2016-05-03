@@ -111,7 +111,7 @@ public class AppController {
 
                 return "afterlogin";
             } else {
-                return "index";
+                return "errorlogin";
             }
         }
     }
@@ -132,7 +132,7 @@ public class AppController {
             modelMap.addAttribute("login", username);
             return "regsuccess";
         } else {
-            return "index";
+            return "errorreg";
         }
     }
 

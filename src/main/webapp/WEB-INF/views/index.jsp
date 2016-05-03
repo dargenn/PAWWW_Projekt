@@ -10,48 +10,56 @@
 <html>
 <head>
     <title>Main Page</title>
-    <link rel="stylesheet" href="<c:url value='/static/css/app.css' />" />
+    <link rel="stylesheet" href="<c:url value='/static/css/style.css' />"  type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
+    <link href="<c:url value='/static/css/default.css' />" rel="stylesheet" type="text/css" media="all" />
+    <link href="<c:url value='/static/css/fonts.css' />" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
-<div id="loginContainer">
-    <h1>PLEASE LOGIN</h1>
-    <form method="post" action="/login">
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="login"/>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <input type="submit" value="Login" />
-    </form>
+<div id="welcome">
+    <div class="container">
+        <h1>Login or Create a Free Account!</h1>
+    </div>
+    <div class="container">
+        <ul class="left-form">
+            <h2>New Account:</h2>
+            <div>
+                <form name="myForm" method="post" action="/register">
+                    <li>
+                        <input type="text" id="reglogin" name="reglogin" placeholder="Username" required/>
+                        <div class="clear"> </div>
+                    </li>
+                    <li>
+                        <input type="password" id="regpassword" name="regpassword" placeholder="password" required/>
+                        <div class="clear"> </div>
+                    </li>
+                    <input type="submit" onclick="myFunction()" value="Register" />
+                    <div class="clear"> </div>
+                </form>
+            </div>
+            <div class="clear"> </div>
+        </ul>
+
+        <ul class="left-form">
+            <h2>Login:</h2>
+            <div>
+                <form name="myForm" method="post" action="/login">
+                    <li>
+                        <input type="text" id="login" name="login" placeholder="Login" required/>
+                        <div class="clear"> </div>
+                    </li>
+                    <li>
+                        <input type="password" id="password" name="password" placeholder="password" required/>
+                        <%--<div class="clear"> </div>--%>
+                        <input type="submit" onclick="myFunction()" value="Login"/>
+                        <div class="clear"> </div>
+                    </li>
+                </form>
+            </div>
+            <div class="clear"> </div>
+        </ul>
+    </div>
 </div>
 
-<div id="registerContainer">
-    <h1>PLEASE REGISTER</h1>
-    <form method="post" action="/register">
-        <label for="login">Login:</label>
-        <input type="text" id="reglogin" name="reglogin"/>
-        <label for="password">Password:</label>
-        <input type="password" id="regpassword" name="regpassword" />
-        <input type="radio" />
-        <input type="submit" value="Register!" />
-    </form>
-</div>
-
-    <h1>Hello world</h1>
-    <h2>List of Users - now we have ${userCount} of them!</h2>
-    <table>
-        <tr>
-            <th>Login</th>
-            <th>Password</th>
-        </tr>
-        <c:forEach items="${users}" var="user">
-            <tr>
-                <td>${user.login}</td>
-                <td>${user.password}</td>
-            </tr>
-        </c:forEach>
-    </table>
-
-
-</body>
-</html>
+<%@ include file="footer.jsp" %>
