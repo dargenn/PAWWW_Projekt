@@ -110,6 +110,46 @@
     </form>
 </div>
 
+<div id="clipboard">
+    <h1>Your clipboard</h1>
+    <table>
+        <tr>
+            <th>Content</th>
+        </tr>
+        <c:forEach items="${userClipboards}" var="u">
+            <tr>
+                <td>${u.content}</td>
+                <td><form action="/delete-${u.id}-clipboard" method="get"><input type="submit" value="DELETE" /></form></td>
+            </tr>
+        </c:forEach>
+    </table>
+    <form method="get" action="/addUserClipboard">
+        <br /><label for="ccontent">Content:</label>
+        <input type="text" id="ccontent" name="ccontent"/>
+        <br /><input type="submit" value="Add something to your clipboard!" />
+    </form>
+</div>
+
+<div id="quotes">
+    <h1>Your Quotes</h1>
+    <table>
+        <tr>
+            <th>Content</th>
+        </tr>
+        <c:forEach items="${userQuotes}" var="q">
+            <tr>
+                <td>${q.content}</td>
+                <td><form action="/delete-${q.id}-quote" method="get"><input type="submit" value="DELETE" /></form></td>
+            </tr>
+        </c:forEach>
+    </table>
+    <form method="get" action="/addQuote">
+        <br /><label for="qcontent">Content:</label>
+        <input type="text" id="qcontent" name="qcontent"/>
+        <br /><input type="submit" value="Add quote!" />
+    </form>
+</div>
+
 <div data-role="footer">
     <h1>Projekt Silownia - Programowanie Aplikacji WWW w technologii Java</h1>
 </div>

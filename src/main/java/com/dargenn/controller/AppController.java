@@ -11,14 +11,8 @@ import java.util.Locale;
 import javax.jws.soap.SOAPBinding;
 import javax.validation.Valid;
 
-import com.dargenn.model.Excercise;
-import com.dargenn.model.Meal;
-import com.dargenn.model.Suplements;
-import com.dargenn.model.User;
-import com.dargenn.service.ExcerciseService;
-import com.dargenn.service.MealService;
-import com.dargenn.service.SuplementService;
-import com.dargenn.service.UserService;
+import com.dargenn.model.*;
+import com.dargenn.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -46,6 +40,12 @@ public class AppController {
 
     @Autowired
     SuplementService suplementService;
+
+    @Autowired
+    UserClipboardService userClipboardService;
+
+    @Autowired
+    UserQuotesService userQuotesService;
 
     @Autowired
     MessageSource messageSource;
@@ -83,6 +83,12 @@ public class AppController {
             List<Suplements> suplements = suplementService.findUserSuplements(currentId);
             modelMap.addAttribute("suplements", suplements);
 
+            List<UserClipboard> userClipboards = userClipboardService.findUserUserClipboards(currentId);
+            modelMap.addAttribute("userClipboards", userClipboards);
+
+            List<UserQuotes> userQuotes = userQuotesService.findUserUserQuotes(currentId);
+            modelMap.addAttribute("userQuotes", userQuotes);
+
             return "afterlogin";
         } else {
             if(currentId > 0){
@@ -96,6 +102,12 @@ public class AppController {
 
                 List<Suplements> suplements = suplementService.findUserSuplements(currentId);
                 modelMap.addAttribute("suplements", suplements);
+
+                List<UserClipboard> userClipboards = userClipboardService.findUserUserClipboards(currentId);
+                modelMap.addAttribute("userClipboards", userClipboards);
+
+                List<UserQuotes> userQuotes = userQuotesService.findUserUserQuotes(currentId);
+                modelMap.addAttribute("userQuotes", userQuotes);
 
                 return "afterlogin";
             } else {
@@ -189,6 +201,42 @@ public class AppController {
     @RequestMapping(value = "/delete-{id}-suplement")
     public String deleteSuplement(@PathVariable int id){
         suplementService.deleteSuplement(id);
+        return "redirect:/afterlogin";
+    }
+
+    /*
+   USER CLIPBOARD
+    */
+    @RequestMapping(value = "/addUserClipboard", method = RequestMethod.GET)
+    public String addUserClipboard(@ModelAttribute("ccontent")String content){
+        UserClipboard userClipboard = new UserClipboard();
+        userClipboard.setContent(content);
+
+        userClipboardService.addUserClipboard(userClipboard, currentId);
+        return "redirect:/afterlogin";
+    }
+
+    @RequestMapping(value = "/delete-{id}-clipboard")
+    public String deleteUserClipboard(@PathVariable int id){
+        userClipboardService.deleteUserClipboard(id);
+        return "redirect:/afterlogin";
+    }
+
+    /*
+   USER QUOTES
+   */
+    @RequestMapping(value = "/addQuote", method = RequestMethod.GET)
+    public String addQuote(@ModelAttribute("qcontent")String content){
+        UserQuotes userQuotes = new UserQuotes();
+        userQuotes.setContent(content);
+
+        userQuotesService.addUserQuotes(userQuotes, currentId);
+        return "redirect:/afterlogin";
+    }
+
+    @RequestMapping(value = "/delete-{id}-quote")
+    public String deleteQuote(@PathVariable int id){
+        userQuotesService.deleteUserQuotes(id);
         return "redirect:/afterlogin";
     }
 }
