@@ -36,15 +36,9 @@ public class ExcerciseDao extends AbstractDao<Integer, Excercise> {
                 .executeUpdate();
     }
 
-    public void editExcercise(Excercise excercise, int id){
-        String q = "UPDATE Excercise " +
-                "SET name = :name, sets = :sets, reps = :reps, weight = :weight " +
-                "WHERE ID = :id";
+    public void deleteExcercise(int id){
+        String q = "DELETE FROM Excercise WHERE ID = :id";
         getSession().createSQLQuery(q)
-                .setParameter("name", excercise.getName())
-                .setParameter("sets", excercise.getSets())
-                .setParameter("reps", excercise.getReps())
-                .setParameter("weight", excercise.getWeight())
                 .setParameter("id", id)
                 .executeUpdate();
     }

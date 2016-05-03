@@ -26,7 +26,7 @@ public class ExcerciseService {
         dao.addExcercise(excercise, id);
     }
 
-    public void editExcercise(Excercise excercise, int id){
-        dao.editExcercise(excercise, id);
+    public void deleteExcercise(int id){
+        dao.deleteExcercise(id);
     }
 }

@@ -15,6 +15,7 @@ public class Suplements {
     private String name;
     private String amount;
     private Timestamp datePurchased;
+    private int user_id;
 
     @Id
     @Column(name = "ID")
@@ -54,6 +55,16 @@ public class Suplements {
 
     public void setDatePurchased(Timestamp datePurchased) {
         this.datePurchased = datePurchased;
+    }
+
+    @Basic
+    @Column(name = "user_id")
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id){
+        this.user_id = user_id;
     }
 
     @Override

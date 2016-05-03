@@ -12,8 +12,12 @@ import javax.jws.soap.SOAPBinding;
 import javax.validation.Valid;
 
 import com.dargenn.model.Excercise;
+import com.dargenn.model.Meal;
+import com.dargenn.model.Suplements;
 import com.dargenn.model.User;
 import com.dargenn.service.ExcerciseService;
+import com.dargenn.service.MealService;
+import com.dargenn.service.SuplementService;
 import com.dargenn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -36,6 +40,12 @@ public class AppController {
 
     @Autowired
     ExcerciseService excerciseService;
+
+    @Autowired
+    MealService mealService;
+
+    @Autowired
+    SuplementService suplementService;
 
     @Autowired
     MessageSource messageSource;
@@ -67,12 +77,26 @@ public class AppController {
             List<Excercise> excercises = excerciseService.findUserExcercises(currentId);
             modelMap.addAttribute("excercises", excercises);
 
+            List<Meal> meals = mealService.findUserMeals(currentId);
+            modelMap.addAttribute("meals", meals);
+
+            List<Suplements> suplements = suplementService.findUserSuplements(currentId);
+            modelMap.addAttribute("suplements", suplements);
+
             return "afterlogin";
         } else {
             if(currentId > 0){
                 modelMap.addAttribute("login", username);
+
                 List<Excercise> excercises = excerciseService.findUserExcercises(currentId);
                 modelMap.addAttribute("excercises", excercises);
+
+                List<Meal> meals = mealService.findUserMeals(currentId);
+                modelMap.addAttribute("meals", meals);
+
+                List<Suplements> suplements = suplementService.findUserSuplements(currentId);
+                modelMap.addAttribute("suplements", suplements);
+
                 return "afterlogin";
             } else {
                 return "index";
@@ -100,6 +124,9 @@ public class AppController {
         }
     }
 
+    /*
+    EXCERCISE
+     */
     @RequestMapping(value = "/addExcercise", method = RequestMethod.GET)
     public String addExcercise(@ModelAttribute("exname")String exname,
                                @ModelAttribute("exsets")int exsets,
@@ -116,19 +143,52 @@ public class AppController {
         return "redirect:/afterlogin";
     }
 
-    @RequestMapping(value = "/edit-{id}-excercise", method = RequestMethod.POST)
-    public String editExcercise(@PathVariable int id,
-                                @ModelAttribute("eexname")String exname,
-                                @ModelAttribute("eexsets")int exsets,
-                                @ModelAttribute("eexreps")int exreps,
-                                @ModelAttribute("eexweight")int exweight){
-        Excercise excercise = new Excercise();
-        excercise.setName(exname);
-        excercise.setSets(exsets);
-        excercise.setReps(exreps);
-        excercise.setWeight(exweight);
+    @RequestMapping(value = "/delete-{id}-excercise")
+    public String deleteExcercise(@PathVariable int id){
+        excerciseService.deleteExcercise(id);
+        return "redirect:/afterlogin";
+    }
 
-        excerciseService.editExcercise(excercise, id);
+    /*
+    MEAL
+     */
+    @RequestMapping(value = "/addMeal", method = RequestMethod.GET)
+    public String addMeal(@ModelAttribute("mmeal")String mmeal,
+                          @ModelAttribute("mamount")String mamount,
+                          @ModelAttribute("mtype")String mtype){
+
+        Meal meal = new Meal();
+        meal.setName(mmeal);
+        meal.setAmount(mamount);
+        meal.setType(mtype);
+
+        mealService.addMeal(meal, currentId);
+        return "redirect:/afterlogin";
+    }
+
+    @RequestMapping(value = "/delete-{id}-meal")
+    public String deleteMeal(@PathVariable int id){
+        mealService.deleteMeal(id);
+        return "redirect:/afterlogin";
+    }
+
+    /*
+    SUPLEMENT
+     */
+    @RequestMapping(value = "/addSuplement", method = RequestMethod.GET)
+    public String addSuplement(@ModelAttribute("sname")String sname,
+                          @ModelAttribute("samount")String samount){
+        Suplements suplement = new Suplements();
+        suplement.setName(sname);
+        suplement.setAmount(samount);
+
+        suplementService.addSuplement(suplement, currentId);
+        return "redirect:/afterlogin";
+    }
+
+    @RequestMapping(value = "/delete-{id}-suplement")
+    public String deleteSuplement(@PathVariable int id){
+        suplementService.deleteSuplement(id);
         return "redirect:/afterlogin";
     }
 }

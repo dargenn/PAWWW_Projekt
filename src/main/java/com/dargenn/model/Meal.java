@@ -16,6 +16,7 @@ public class Meal {
     private String amount;
     private String type;
     private Timestamp mealDate;
+    private int user_id;
 
     @Id
     @Column(name = "ID")
@@ -65,6 +66,16 @@ public class Meal {
 
     public void setMealDate(Timestamp mealDate) {
         this.mealDate = mealDate;
+    }
+
+    @Basic
+    @Column(name = "user_id")
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id){
+        this.user_id = user_id;
     }
 
     @Override

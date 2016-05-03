@@ -24,7 +24,6 @@
     <h1>Excercises</h1>
     <table>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Sets</th>
             <th>Reps</th>
@@ -33,28 +32,12 @@
         </tr>
         <c:forEach items="${excercises}" var="ex">
             <tr>
-                <td>${ex.id}</td>
                 <td>${ex.name}</td>
                 <td>${ex.sets}</td>
                 <td>${ex.reps}</td>
                 <td>${ex.weight}</td>
                 <td>${ex.excerciseDate}</td>
-                <td><a href="#myPopup" data-rel="popup" target="_blank" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Edit</a></td>
-                <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
-                    <form method="post" action="/edit-${ex.id}-excercise">
-                        <br /><label for="eeid">ID:</label>
-                        <input type="text" id="eeid" name="eeid" readonly="readonly"/>
-                        <br /><label for="eexname">Excercise:</label>
-                        <input type="text" id="eexname" name="eexname" />
-                        <br /><label for="eexsets">Sets:</label>
-                        <input type="text" id="eexsets" name="eexsets" />
-                        <br /><label for="eexreps">Reps:</label>
-                        <input type="text" id="eexreps" name="eexreps" />
-                        <br /><label for="eexweight">Weight:</label>
-                        <input type="text" id="eexweight" name="eexweight" />
-                        <br /><input type="submit" value="Edit excercise" />
-                    </form>
-                </div>
+                <td><form action="/delete-${ex.id}-excercise" method="get"><input type="submit" value="DELETE" /></form></td>
             </tr>
         </c:forEach>
     </table>
@@ -68,6 +51,62 @@
         <br /><label for="exweight">Weight:</label>
         <input type="text" id="exweight" name="exweight"/>
         <br /><input type="submit" value="Add excercise!" />
+    </form>
+</div>
+
+<div id="meal">
+    <h1>Meals</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Date</th>
+        </tr>
+        <c:forEach items="${meals}" var="meal">
+            <tr>
+                <td>${meal.name}</td>
+                <td>${meal.amount}</td>
+                <td>${meal.type}</td>
+                <td>${meal.mealDate}</td>
+                <td><form action="/delete-${meal.id}-meal" method="get"><input type="submit" value="DELETE" /></form></td>
+            </tr>
+        </c:forEach>
+    </table>
+    <form method="get" action="/addMeal">
+        <br /><label for="mmeal">Meal:</label>
+        <input type="text" id="mmeal" name="mmeal"/>
+        <br /><label for="mamount">Amount:</label>
+        <input type="text" id="mamount" name="mamount"/>
+        <br /><label for="mtype">Type:</label>
+        <input type="text" id="mtype" name="mtype"/>
+        <br /><input type="submit" value="Add meal!" />
+    </form>
+</div>
+
+<div id="suplements">
+    <h1>Suplements</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        <c:forEach items="${suplements}" var="s">
+            <tr>
+                <td>${s.name}</td>
+                <td>${s.amount}</td>
+                <td>${s.datePurchased}</td>
+                <td><form action="/delete-${s.id}-suplement" method="get"><input type="submit" value="DELETE" /></form></td>
+            </tr>
+        </c:forEach>
+    </table>
+    <form method="get" action="/addSuplement">
+        <br /><label for="sname">Suplement:</label>
+        <input type="text" id="sname" name="sname"/>
+        <br /><label for="samount">Amount:</label>
+        <input type="text" id="samount" name="samount"/>
+        <br /><input type="submit" value="Add suplement!" />
     </form>
 </div>
 
